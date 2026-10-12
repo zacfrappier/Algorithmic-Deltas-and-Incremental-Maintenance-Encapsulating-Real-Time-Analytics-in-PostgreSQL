@@ -19,19 +19,23 @@ CREATE VIEW vw_sla_on_the_fly AS
 SELECT
     h.Hub_Region,
     c.Customer_Priority_Level,
-    COUNT(*) AS Total_Violations,
-    ROUND(SUM((r.Delay_Minutes - 60) * 10.00), 2) AS Total_Penalty_Cost
-FROM Route_Logs r
-JOIN Deliveries d
+    COUNT(*) AS Total_Violations,       -- counts violations
+    ROUND(SUM((r.Delay_Minutes - 60) * 10.00), 2) AS Total_Penalty_Cost  --calculation
+FROM Route_Logs r                   -- table that contains delay minuts 
+JOIN Deliveries d                   -- connects each route log to a delivery
     ON r.Delivery_ID = d.Delivery_ID
-JOIN Hubs h
+JOIN Hubs h                         -- hub region
     ON d.Hub_ID = h.Hub_ID
-JOIN Customers c
+JOIN Customers c                    -- customer priority level
     ON d.Customer_ID = c.Customer_ID
-WHERE r.Delay_Minutes > 60
-GROUP BY
+WHERE r.Delay_Minutes > 60          -- SLA violation
+GROUP BY                            -- creates dashboard
     h.Hub_Region,
     c.Customer_Priority_Level
 ORDER BY
     h.Hub_Region,
     c.Customer_Priority_Level;
+
+-- Test the baseline view
+SELECT *
+FROM vw_sla_on_the_fly;
