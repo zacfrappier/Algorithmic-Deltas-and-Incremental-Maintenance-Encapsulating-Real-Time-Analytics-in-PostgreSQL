@@ -1,5 +1,5 @@
 benchmark,condition,execution_time_ms
-read_latency,on_the_fly_view,ENTER_RESULT
-read_latency,materialized_summary,ENTER_RESULT
-write_penalty,trigger_disabled,ENTER_RESULT
-write_penalty,trigger_enabled,ENTER_RESULT
+read_latency,on_the_fly_view,171.594
+read_latency,materialized_summary,0.015
+write_penalty,trigger_disabled,196.915
+write_penalty,trigger_enabled,625.979
